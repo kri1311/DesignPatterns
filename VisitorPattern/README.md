@@ -1,1 +1,2 @@
-This section shows the im
+
+This section shows the implementation of Visitor Design Pattern.
