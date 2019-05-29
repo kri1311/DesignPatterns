@@ -14,5 +14,10 @@ public class PriceVisitor implements VehicleVisitor{
 	public void visit(Truck truck) {
 		System.out.println("Calculating the price of the Truck");
 	}
+	
+	//Calculate the price of all vehilces ? 
+	//Find sum of all prices of all vehicles.
+	// some more meaningful visitors 
+	//
 
 }
