@@ -1,9 +1,9 @@
 package com.practice.example;
 
-class Car implements Vehicle{
-	int price;
-	float weight;
-	String color;
+public class Car implements Vehicle{
+	private int price;
+	private float weight;
+	private String color;
 	
 	
 	Car(int price,float weight,String color){
