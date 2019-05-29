@@ -12,6 +12,10 @@ public class VisitorPatternDemo {
 		Vehicle truck = new Truck(90.0,5000,’Green’);
 		
 		// Perform some operations. 
+		//Junit Test Cases : 
+		//set and get color 
+		//How to test visitors ?
+		
 
 		
 
