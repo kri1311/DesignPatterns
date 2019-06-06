@@ -1,16 +1,10 @@
 
-Factory Pattern :
--------------------
-UI Element  class: 
-Label 
-Text Box 
-Button 
+#This section shows the implementation of Abstract Factory Design Pattern.
 
-Abstract Factory Interface : // abstract super class as well,  
------------------------
-Java AWT class , Swing  class 
+Problem : Design a system which will develop full fledged UI : 
+
+e.g. : It should support a lot of operations.
 
 
-Now give me a factory for swing elements.
 
 
