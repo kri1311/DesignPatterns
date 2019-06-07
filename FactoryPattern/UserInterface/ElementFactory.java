@@ -3,7 +3,7 @@ package com.practice.example;
 
 public class ElementFactory implements Element {
 	private String elementType;
-	public void getElement() {
+	public Element getElement() {
 		Element e =  null;
 	
 	
@@ -18,6 +18,7 @@ public class ElementFactory implements Element {
 	if(elementType=="textField") {
 		return new TextField();
 	}
+		//usgae of switch and enum 
 
 	}
 }
