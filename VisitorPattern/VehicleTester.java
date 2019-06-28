@@ -1,13 +1,15 @@
 package com.practice.example;
 import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.*;
 
 
 public class VehicleTester extends TestCase {
-
 	
 	ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+	List<String> vehiclesWithBlueColor=new ArrayList<String>();
+	//Initializing vehicles
 	vehicles.add(new Car("BMW",100,90.25,"BLUE"));
 	vehicles.add(new Car("Audi",110,80.50,"GREEN"));
 	vehicles.add(new Car("Honda",120,45.23,"YELLOW"));
@@ -77,22 +79,28 @@ public class VehicleTester extends TestCase {
    //Test the Max Price Visitor
    public void testMaxPriceVisitor() {
 	   MaxPriceVisitor vv = new MaxPriceVisitor();
-	   assert(vv.findMaxPriceVehicle()==210);	   
+	   assert(vv.getMaxPrice()==210);	   
    }
    
    //Test the Max Weight Visitor
    public void testMaxWeightVisitor() {
 	   MaxWeightVisitor mpv = new MaxWeightVisitor();
-	   assert(mpv.findMaxWeightVisitor()==97.25);	
+	   assert(mpv.getMaxWeight()==97.25);	
 	   
    }
    
-   //Test the Bluecolor Visitor
-//   public void testBlueColorVisitor() {
-//	   BlueColorVisitor bv = new BlueColorVisitor();
-//	   assert(bv.findBlueColorVehicles()==);
-//	   
-//   }
+   //Test the BlueColor Visitor
+   public void testBlueColorVisitor() {
+	   BlueColorVisitor bcv = new BlueColorVisitor();
+	   vehiclesWithBlueColor=bcv.getBlueColorVehicles(vehicles);
+	   assert(vehiclesWithBlueColor.contains("Hero")==true);   //,System.out.print(" "+vehicleName);
+	   assert(vehiclesWithBlueColor.contains("BMW")==true);
+	   assert(vehiclesWithBlueColor.contains("AshokLeyLand")==true);
+	   assert(vehiclesWithBlueColor.contains("Asia Motors")==true);
+	   assert(vehiclesWithBlueColor.contains("Audi")==true);
+	   
+	   
+   }
    
 }
 
