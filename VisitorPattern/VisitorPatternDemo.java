@@ -22,12 +22,20 @@ public class VisitorPatternDemo {
 		vehicles.add(new Truck("Asia Motors",300,41.23,"YELLOW"));
 		
 		MaxPriceVisitor vv = new MaxPriceVisitor();
-		BlueColorVisitor bv = new BlueColorVisitor();
-		MaxWeightVisitor mpv = new MaxWeightVisitor();
+//		BlueColorVisitor bv = new BlueColorVisitor();
+		MaxWeightVisitor mwv = new MaxWeightVisitor();
 		
-		vv.findMaxPriceVehicle(vehicles);
-		bv.findBlueColorVehicles(vehicles);
-		mpv.findMaxWeightVisitor(vehicles);
+//		vv.findMaxPriceVehicle(vehicles);
+//		bv.findBlueColorVehicles(vehicles);
+//		mpv.findMaxWeightVisitor(vehicles);
+		
+		for(Vehicle v : vehicles) {
+			v.accept(vv);
+			v.accept(mwv);
+			
+		}
+		System.out.println("Max Price = "+vv.getMaxPrice());
+		System.out.println("Max Weight = "+mwv.getMaxWeight());
 	}
 
 }
