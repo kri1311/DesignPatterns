@@ -4,19 +4,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MaxWeightVisitor {
+public class MaxWeightVisitor implements VehicleVisitor{
 
-	public double findMaxWeightVisitor(ArrayList<Vehicle> vehicles) {
+private double maxWeight;
+	
+	MaxWeightVisitor(){
+		this.maxWeight=0;
+	}
+	
+	public double getMaxWeight()  {
+		return this.maxWeight;
+	}
+	@Override
+	public void visit(Car car) {
+		// TODO Auto-generated method stub
+		this.maxWeight=Math.max(this.maxWeight, car.getWeight());
+	}
+
+	@Override
+	public void visit(Bike bike) {
+		// TODO Auto-generated method stub
+		this.maxWeight=Math.max(this.maxWeight, bike.getWeight());
+	}
+
+	@Override
+	public void visit(Truck truck) {
+		// TODO Auto-generated method stub
+		this.maxWeight=Math.max(this.maxWeight, truck.getWeight());
 		
-			List<Double> weightList= new ArrayList<Double>();
-			for(Vehicle v : vehicles) {
-				weightList.add(v.getWeight());
-				
-			Collections.sort(weightList);
-			
-			return weightList.get(weightList.size()-1);
-					
-				}
-			}
+	}
+	
 	}
 
