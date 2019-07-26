@@ -1,24 +1,23 @@
-
 package com.practice.example;
 
-public class ElementFactory implements Element {
-	private String elementType;
-	public Element getElement() {
+public class ElementFactory  {
+	public Element getElement(String ElementType) {
 		Element e =  null;
-	
-	
-	if(elementType=="button") {
-		return new Button();
-	}
-	
-	if(elementType=="label") {
-		return new Label();
-	}
-	
-	if(elementType=="textField") {
-		return new TextField();
-	}
-		//usgae of switch and enum 
-
-	}
+		
+		switch(ElementType) {
+		case "Button":	
+			e=new Button();
+			break;
+		case "Label":	
+			e=new Label();
+			break;
+		case "TextField":	
+			e=new TextField();
+			break;
+		}
+	return e;	
+  }	
 }
+			
+	
+
