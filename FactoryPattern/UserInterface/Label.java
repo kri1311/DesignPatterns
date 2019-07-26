@@ -1,7 +1,6 @@
-
 package com.practice.example;
 
-public class Label extends Element {
+public class Label implements Element {
 	
 	private int labelID;
 	private String labelName;
@@ -18,8 +17,9 @@ public class Label extends Element {
 		this.labelName = labelName;
 	}
 	
-	public void buildElement(String label) {
-		System.out.println("Constructing the Label in UI"+label);
+	public String buildElement() {
+		return "Constructing the Label";
 	}
+	
 
 }
