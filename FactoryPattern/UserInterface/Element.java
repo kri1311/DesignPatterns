@@ -1,6 +1,5 @@
-
 package com.practice.example;
-class Element{
+interface Element{
 	
-	public void buildElement(String s) {}
+	public String buildElement();
 }
