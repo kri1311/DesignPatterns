@@ -1,7 +1,6 @@
-
 package com.practice.example;
 
-public class TextField extends Element {
+public class TextField implements Element {
 	
 	private int textFieldID;
 	private String textFieldName;
@@ -25,11 +24,10 @@ public class TextField extends Element {
 		this.textFieldLength = textFieldLength;
 	}
 	
-	public void buildElement(String textField) {
-		
-		System.out.println("Constructing the TextField in UI"+textField);
-		
+	public String buildElement() {
+		return "Constructing the TextField";
 	}
+	
 	
 
 }
