@@ -1,6 +1,5 @@
-
 package com.practice.example;
-public class Button extends Element {
+public class Button implements Element {
 	
 	private int buttonID;
 	private String buttonName;
@@ -24,8 +23,8 @@ public class Button extends Element {
 		this.buttontype = buttontype;
 	}
 	
-	public void buildElement(String button) {
-		System.out.println("Constructing the button in UI"+button);
+	public String buildElement() {
+		return "Constructing the Button";
 	}
 	
 
