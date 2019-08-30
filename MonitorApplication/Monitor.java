@@ -5,6 +5,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Monitor implements Runnable {
 
@@ -24,31 +28,20 @@ public class Monitor implements Runnable {
 		return instance;
 	}
 
-	/*
-	 * If a Caller is already registered for a service, skip it, else register it.
-	 * 
-	 */
-	// <Service, List of Callers (caller, frequency)>
+	final Map<Service, List<Caller>> registerCache = new TreeMap<Service, List<Caller>>();
+	final Map<Service, Integer> hm = new TreeMap<Service, Integer>();
+	List<Caller> valSetOne = new ArrayList<Caller>();
 
-	// 2 service,1 caller 1,2
-	// Caller 1 : Google , freq : 1.5 sec --checking..
-	// Caller 2 : Google, freq : 2 sec
-	//
-	// 1.5 sec, 3 sec ,
+	public void register(Service s, int freq, Caller client) {
 
-	// final Map<Service, List<Caller>> registerCache = new TreeMap<Service, List<Caller>>();
-	// final Map<Service, Integer> hm = new TreeMap<Service, Integer>();
-	//
-	// public void register(Service s, int freq, Caller client) {
-	//
-	// if (registerCache.containsKey(client) && registerCache.get(client).containsValue(s))
-	// return;
-	// else {
-	// registerCache.putIfAbsent(s, new TreeMap<Service, Integer>());
-	// registerCache.get(s).putIfAbsent(s, freq);
-	// }
-	//
-	// }
+		if ((registerCache.containsKey(s)) && registerCache.get(s).contains(client))
+			return;
+		else {
+			// registerCache.putIfAbsent(s, new TreeMap<Service, Integer>());
+			registerCache.get(s).putIfAbsent(s, valSetOne.add(client));
+		}
+
+	}
 
 	boolean checkServiceStatus(Service s, String address, int port) {
 		try {
@@ -71,13 +64,9 @@ public class Monitor implements Runnable {
 
 	}
 
-	// public void plannedOutageRegistration(Service,Caller,int startTime, int endTime) {
-	//
-	// }
 	@Override
 	public void run() {
 
 	}
-	
 
 }
