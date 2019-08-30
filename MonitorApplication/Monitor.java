@@ -48,11 +48,6 @@ public class Monitor implements Runnable {
 			socket = new Socket(address, port);
 			System.out.println("Connected");
 
-			// takes input from terminal
-			input = new DataInputStream(System.in);
-
-			// sends output to the socket
-			out = new DataOutputStream(socket.getOutputStream());
 			return true;
 		} catch (UnknownHostException u) {
 			System.out.println(u);
