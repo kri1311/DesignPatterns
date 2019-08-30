@@ -1,2 +1,13 @@
 // Flyweight pattern for service class
 // Observer pattern for Monitor class
+/*
+	 * If a Caller is already registered for a service, skip it, else register it.
+	 * 
+	 */
+	// <Service, List of Callers (caller, frequency)>
+
+	// 2 service,1 caller 1,2
+	// Caller 1 : Google , freq : 1.5 sec --checking..
+	// Caller 2 : Google, freq : 2 sec
+	//
+	// 1.5 sec, 3 sec ,
