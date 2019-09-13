@@ -6,25 +6,22 @@ public class MonitorApplication implements Caller {
 
 		MonitorApplication mp = new MonitorApplication();
 
-		Service s = Service.of("127.0.0.1", 8080);
+		Service s = Service.of("172.217.16.163", 80);
 
 		Monitor m = Monitor.getInstance();
-		m.checkServiceStatus(s, "127.0.0.1", 8080);
+		//
 
 		m.register(s, 3, mp);
+		boolean serviceStatus = m.checkServiceStatus(s);
+		if (!serviceStatus) {
+			System.out.println("Connection refused");
+		}
 	}
 
 	@Override
 	public void serviceUp(Service s) {
 		// TODO Auto-generated method stub
-		/*
-		 * If the connection is established, the service is up
-		 * 
-		 */
-		// if (serviceCache.containsKey(ip) && serviceCache.get(ip).containsKey(port))
-		// return true;
-		// else
-		// return false;
+
 		System.out.println("Service" + s.toString() + " is up");
 
 	}
@@ -32,10 +29,6 @@ public class MonitorApplication implements Caller {
 	@Override
 	public void serviceDown(Service s) {
 		// TODO Auto-generated method stub
-		/*
-		 * If the connection doesn't established, the service is down
-		 * 
-		 */
 		/// Logic to notify callers
 		// return false;
 		System.out.println("Service" + s.toString() + " is down");
