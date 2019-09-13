@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.monitor.service;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class Monitor implements Runnable {
 
 	private static Monitor instance;
 
-	private Monitor() {
+	Monitor() {
 	}
 
 	public synchronized static Monitor getInstance() {
@@ -32,7 +32,7 @@ public class Monitor implements Runnable {
 			registerCache.get(s).add(client);
 
 		}
-		/// to put the minimum frequency calculation Math.min()
+		/// To calculate the minimum frequency
 		hm.put(s, Math.min(freq, hm.getOrDefault(s, Integer.MAX_VALUE)));
 
 	}
@@ -40,7 +40,7 @@ public class Monitor implements Runnable {
 	public boolean checkServiceStatus(Service s) {
 		try {
 			Socket socket = new Socket(s.getIp(), s.getPort());
-			System.out.println("Connection Established"); // Use Apache logger log4j
+			System.out.println("Connection to Service (" + s.getIp() + ":" + s.getPort() + ") Established.");
 			socket.close();
 
 			return true;
@@ -54,6 +54,14 @@ public class Monitor implements Runnable {
 
 	@Override
 	public void run() {
+
+		Thread t = new Thread("ServiceCheckThread");
+		try {
+			t.sleep(60);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
