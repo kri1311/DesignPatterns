@@ -5,6 +5,8 @@ import java.util.TreeMap;
 
 public class Service {
 
+	private static Map<String, TreeMap<Integer, Service>> serviceCache = new TreeMap<String, TreeMap<Integer, Service>>(); // Service Cache to store service related information
+
 	/*
 	 * Service is combination of IP address and Port number
 	 * 
@@ -12,13 +14,15 @@ public class Service {
 	private final String ip;
 	private final int port;
 
-	private static Map<String, TreeMap<Integer, Service>> serviceCache = new TreeMap<String, TreeMap<Integer, Service>>(); // Service Cache to store service related information
+	@Override
+	public String toString() {
+		return ip + ":" + port;
+	}
 
 	/*
-	 * If service is existing in serviceCache, return it., otherwise create new one and return new one
-	 * 
-	 * 
+	 * If service is existing in serviceCache, return it, otherwise create new one and return new one
 	 */
+
 	public static Service of(String ip, int port) {
 
 		if (serviceCache.containsKey(ip) && serviceCache.get(ip).containsKey(port)) {
