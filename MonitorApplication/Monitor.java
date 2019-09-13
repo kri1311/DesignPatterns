@@ -1,10 +1,6 @@
 package com.example.practice;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,11 +8,7 @@ import java.util.TreeMap;
 
 public class Monitor implements Runnable {
 
-	// private static HashMap<Service, Caller> hm = new HashMap<Service, Caller>();
 	private static Monitor instance;
-	private Socket socket = null;
-	private DataInputStream input = null;
-	private DataOutputStream out = null;
 
 	private Monitor() {
 	}
@@ -28,31 +20,32 @@ public class Monitor implements Runnable {
 		return instance;
 	}
 
-	final Map<Service, List<Caller>> registerCache = new TreeMap<Service, List<Caller>>();
-	final Map<Service, Integer> hm = new TreeMap<Service, Integer>();
-	List<Caller> valSetOne = new ArrayList<Caller>();
+	private final Map<Service, List<Caller>> registerCache = new TreeMap<Service, List<Caller>>();
+	private final Map<Service, Integer> hm = new TreeMap<Service, Integer>();
 
 	public void register(Service s, int freq, Caller client) {
 
 		if ((registerCache.containsKey(s)) && registerCache.get(s).contains(client))
 			return;
 		else {
-			// registerCache.putIfAbsent(s, new TreeMap<Service, Integer>());
-			registerCache.get(s).putIfAbsent(s, valSetOne.add(client));
+			registerCache.putIfAbsent(s, new ArrayList<Caller>());
+			registerCache.get(s).add(client);
+
 		}
+		/// to put the minimum frequency calculation Math.min()
+		hm.put(s, Math.min(freq, hm.getOrDefault(s, Integer.MAX_VALUE)));
 
 	}
 
-	boolean checkServiceStatus(Service s, String address, int port) {
+	public boolean checkServiceStatus(Service s) {
 		try {
-			socket = new Socket(address, port);
-			System.out.println("Connected");
+			Socket socket = new Socket(s.getIp(), s.getPort());
+			System.out.println("Connection Established"); // Use Apache logger log4j
+			socket.close();
 
 			return true;
-		} catch (UnknownHostException u) {
-			System.out.println(u);
-		} catch (IOException i) {
-			System.out.println(i);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 
 		return false;
