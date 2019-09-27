@@ -17,6 +17,7 @@ public class MonitorApplicationTest extends TestCase {
 		assertTrue(s.getPort() == 80);
 	}
 
+	// Test the Service status
 	public void testServiceStatus() {
 		Monitor m = Monitor.getInstance();
 		boolean serviceStatus = m.checkServiceStatus(s);
