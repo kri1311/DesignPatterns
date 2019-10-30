@@ -10,14 +10,11 @@ public class MonitorApplication implements Caller {
 
 		Monitor m = Monitor.getInstance();
 
-		// boolean serviceStatus = m.checkServiceStatus(s);
-		ServiceStatus serviceStatus = new ServiceStatus();
-		boolean status = serviceStatus.test(s);
-
-		if (!status) {
-			System.out.println("Connection to Service (" + s.getIp() + ":" + s.getPort() + ") refused.");
-		}
+		// if (!status) {
+		// System.out.println("Connection to Service (" + s.getIp() + ":" + s.getPort() + ") refused.");
+		// }
 		m.register(s, 3, mp);
+		s.notifyAll();
 	}
 
 	@Override
@@ -31,3 +28,7 @@ public class MonitorApplication implements Caller {
 		System.out.println("Service" + s.toString() + " is down");
 	}
 }
+// clean code
+// 1 timer for every service
+// timers runs with lowest frequency
+// test with different frequency for couple of services.
