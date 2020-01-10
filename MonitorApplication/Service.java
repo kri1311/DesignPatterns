@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.monitor.service;
 
 import java.util.Map;
 import java.util.TreeMap;
