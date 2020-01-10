@@ -1,12 +1,13 @@
 package com.monitor.service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
-public class Monitor implements Runnable { // Runnable interface can be removed
+public class Monitor {
 
 	private static Monitor instance;
 
@@ -32,30 +33,20 @@ public class Monitor implements Runnable { // Runnable interface can be removed
 			registerCache.get(s).add(client);
 
 		}
-		/// To calculate the minimum frequency
+		// To calculate the minimum frequency
 		hm.put(s, Math.min(freq, hm.getOrDefault(s, Integer.MAX_VALUE)));
 		Timer t1 = new Timer();
-		t1.schedule(new ServiceStatus(s, registerCache.get(s)), 0, freq * 1000);
-		//registerCache.get(client).
-		client.serviceDown(s);
-		client.serviceUp(s);
-		
+		t1.schedule(new ServiceStatus(s, registerCache.get(s), psoMap.get(s)), 0, freq * 1000);
 
 	}
 
-	// 1 thread per socket,
-	// include sleep method in run with 1s or the appropriate time gap
-	@Override
-	public void run() {
+	private final Map<Service, Map<Caller, PlannedServiceOutage>> psoMap = new HashMap<Service, Map<Caller, PlannedServiceOutage>>();
 
-		Thread t = new Thread("ServiceCheckThread");
-		try {
-			t.sleep(60);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public void register(Service s, int freq, Caller client, LocalTime startTime, LocalTime endTime) {
+		register(s, freq, client);
+		if (!((psoMap.containsKey(s))))
+			psoMap.putIfAbsent(s, new HashMap<Caller, PlannedServiceOutage>());
+		psoMap.get(s).putIfAbsent(client, new PlannedServiceOutage(startTime, endTime));
 	}
 
 }
