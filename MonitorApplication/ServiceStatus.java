@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
@@ -12,37 +13,41 @@ public class ServiceStatus extends TimerTask {
 	private final Service s;
 	private final List<Caller> callers;
 	private boolean previousServiceState = true;
+	private final Map<Caller, PlannedServiceOutage> pso;
+
 	Logger logger = Logger.getLogger(MonitorApplication.class.getName());
 	// PannedServiceOutage obj - new PlannedServiceOutage();
 
 	// TODO - Include Servicestatus constructor
-	ServiceStatus(Service s, List<Caller> callers) {
+	ServiceStatus(Service s, List<Caller> callers, Map<Caller, PlannedServiceOutage> pso) {
 		// System.out.println("ServiceStatus constructor");
 		logger.info("ServiceStatus  constructor");
 		this.s = s;
 		this.callers = callers;
+		this.pso = pso;
+
 	}
 
 	@Override
 	public void run() {
 		System.out.println("Checking service status");
 		boolean status = checkServiceStatus(s);
-		LocalTime startTime = null;
-		LocalTime endTime = null;
-		PlannedServiceOutage obj = new PlannedServiceOutage(startTime, endTime);
-		startTime = obj.getStartTime();
-		endTime = obj.getEndTime();
-		if (!status && previousServiceState && (LocalTime.now().isBefore(startTime) && LocalTime.now().isAfter(endTime))) {
+		if (!status && previousServiceState) {
 			for (Caller caller : callers) {
-				// if condition for outage time
-				caller.serviceDown(s);
+				PlannedServiceOutage psoObj = this.pso.get(caller); // To retrieve the planned service outage object
+				if (LocalTime.now().isBefore(psoObj.getStartTime()) && LocalTime.now().isAfter(psoObj.getEndTime()))
+					// if condition for outage time
+					caller.serviceDown(s);
 			}
+
 			previousServiceState = false;
-		} else if (status && !previousServiceState && LocalTime.now().isBefore(startTime) && LocalTime.now().isAfter(endTime)) {
+		} else if (status && !previousServiceState) {
 
 			for (Caller caller : callers) {
-				// if condition for outage time
-				caller.serviceUp(s);
+				PlannedServiceOutage psoObj = this.pso.get(caller); // To retrieve the planned service outage object
+				if (LocalTime.now().isBefore(psoObj.getStartTime()) && LocalTime.now().isAfter(psoObj.getEndTime()))
+					// if condition for outage time
+					caller.serviceUp(s);
 			}
 			previousServiceState = true;
 		}
