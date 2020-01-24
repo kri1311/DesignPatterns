@@ -14,8 +14,9 @@ public class MonitorApplication implements Caller {
 
 		// TODO - to include multiple callers
 
-		Service s = Service.of("172.217.16.163", 82);
-		Service s1 = Service.of("46.163.77.226", 80);
+		//Service s = Service.of("10.1.6.160", 82);
+		//Service s = Service.of("172.217.16.160", 82);
+		Service s1 = Service.of("46.163.77.226", 4643);
 		// Service s3 = Service.of("13.32.250.101", 80); // www.amazon.com
 		// Service s4 = Service.of("208.80.154.224", 80); // www.wikipedia.org
 
@@ -23,8 +24,9 @@ public class MonitorApplication implements Caller {
 
 		Monitor m = Monitor.getInstance();
 
-		m.register(s, 3, mp);
-		m.register(s1, 2, mp, LocalTime.of(01, 20), LocalTime.of(01, 50));
+		m.register(s1, 3, mp, 2); // 2000 milliseconds as graceTime
+		//m.register(s1, 2, mp, LocalTime.of(01, 20), LocalTime.of(01, 50),2);
+		//m.register(s1, 2, mp, LocalTime.of(01, 20), LocalTime.of(01, 50),10); including grace time
 		// TODO - do it for multiple services.
 		// m.register(s3, 4, mp);
 		// m.register(s4, 1, mp);
