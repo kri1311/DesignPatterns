@@ -1,5 +1,6 @@
 package com.monitor.service;
 
+import java.time.LocalTime;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,6 +14,7 @@ public class Service {
 	 */
 	private final String ip;
 	private final int port;
+	//private final LocalTime graceTime;
 
 	@Override
 	public String toString() {
